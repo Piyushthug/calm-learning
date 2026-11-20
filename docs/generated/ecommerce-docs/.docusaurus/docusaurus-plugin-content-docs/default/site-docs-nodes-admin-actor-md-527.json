@@ -1,0 +1,28 @@
+{
+  "id": "nodes/admin-actor",
+  "title": "Administrator",
+  "description": "Details",
+  "source": "@site/docs/nodes/admin-actor.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/admin-actor",
+  "permalink": "/nodes/admin-actor",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "node-id": "admin-actor",
+    "id": "admin-actor",
+    "title": "Administrator"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Customer",
+    "permalink": "/nodes/customer-actor"
+  },
+  "next": {
+    "title": "API Gateway",
+    "permalink": "/nodes/api-gateway"
+  }
+}

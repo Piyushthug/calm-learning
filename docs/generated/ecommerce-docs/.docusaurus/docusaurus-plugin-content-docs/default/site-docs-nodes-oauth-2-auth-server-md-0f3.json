@@ -1,0 +1,28 @@
+{
+  "id": "nodes/oauth2-auth-server",
+  "title": "OAuth2 Authorization Server",
+  "description": "Details",
+  "source": "@site/docs/nodes/oauth2-auth-server.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/oauth2-auth-server",
+  "permalink": "/nodes/oauth2-auth-server",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "node-id": "oauth2-auth-server",
+    "id": "oauth2-auth-server",
+    "title": "OAuth2 Authorization Server"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Payment Service",
+    "permalink": "/nodes/payment-service"
+  },
+  "next": {
+    "title": "RabbitMQ Message Broker",
+    "permalink": "/nodes/rabbitmq-message-broker"
+  }
+}

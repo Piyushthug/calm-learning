@@ -1,0 +1,24 @@
+{
+  "id": "flows/inventory-check-flow",
+  "title": "Inventory Stock Check",
+  "description": "Details",
+  "source": "@site/docs/flows/inventory-check-flow.md",
+  "sourceDirName": "flows",
+  "slug": "/flows/inventory-check-flow",
+  "permalink": "/flows/inventory-check-flow",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "flow-id": "inventory-check-flow",
+    "id": "inventory-check-flow",
+    "title": "Inventory Stock Check"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Customer Order Processing",
+    "permalink": "/flows/order-processing-flow"
+  }
+}

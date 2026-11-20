@@ -1,0 +1,28 @@
+{
+  "id": "nodes/rabbitmq-message-broker",
+  "title": "RabbitMQ Message Broker",
+  "description": "Details",
+  "source": "@site/docs/nodes/rabbitmq-message-broker.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/rabbitmq-message-broker",
+  "permalink": "/nodes/rabbitmq-message-broker",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "node-id": "rabbitmq-message-broker",
+    "id": "rabbitmq-message-broker",
+    "title": "RabbitMQ Message Broker"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "OAuth2 Authorization Server",
+    "permalink": "/nodes/oauth2-auth-server"
+  },
+  "next": {
+    "title": "Order Database",
+    "permalink": "/nodes/order-database"
+  }
+}

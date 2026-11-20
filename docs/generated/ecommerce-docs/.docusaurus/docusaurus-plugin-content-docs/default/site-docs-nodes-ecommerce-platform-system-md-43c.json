@@ -1,0 +1,28 @@
+{
+  "id": "nodes/ecommerce-platform-system",
+  "title": "E-Commerce Order Processing System",
+  "description": "Details",
+  "source": "@site/docs/nodes/ecommerce-platform-system.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/ecommerce-platform-system",
+  "permalink": "/nodes/ecommerce-platform-system",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "node-id": "ecommerce-platform-system",
+    "id": "ecommerce-platform-system",
+    "title": "E-Commerce Order Processing System"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Inventory Database",
+    "permalink": "/nodes/inventory-database"
+  },
+  "next": {
+    "title": "Customer Interacts With Gateway",
+    "permalink": "/relationships/customer-interacts-with-gateway"
+  }
+}

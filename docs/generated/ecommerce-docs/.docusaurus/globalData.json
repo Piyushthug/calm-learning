@@ -1,0 +1,173 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/",
+          "mainDocId": "index",
+          "docs": [
+            {
+              "id": "flows/inventory-check-flow",
+              "path": "/flows/inventory-check-flow",
+              "sidebar": "docs"
+            },
+            {
+              "id": "flows/order-processing-flow",
+              "path": "/flows/order-processing-flow",
+              "sidebar": "docs"
+            },
+            {
+              "id": "index",
+              "path": "/",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/admin-actor",
+              "path": "/nodes/admin-actor",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/api-gateway",
+              "path": "/nodes/api-gateway",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/customer-actor",
+              "path": "/nodes/customer-actor",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/ecommerce-platform-system",
+              "path": "/nodes/ecommerce-platform-system",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/inventory-database",
+              "path": "/nodes/inventory-database",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/inventory-service",
+              "path": "/nodes/inventory-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/oauth2-auth-server",
+              "path": "/nodes/oauth2-auth-server",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/order-database",
+              "path": "/nodes/order-database",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/order-service",
+              "path": "/nodes/order-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/payment-service",
+              "path": "/nodes/payment-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/rabbitmq-message-broker",
+              "path": "/nodes/rabbitmq-message-broker",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/admin-interacts-with-gateway",
+              "path": "/relationships/admin-interacts-with-gateway",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/customer-interacts-with-gateway",
+              "path": "/relationships/customer-interacts-with-gateway",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-to-auth-server",
+              "path": "/relationships/gateway-to-auth-server",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-to-inventory-service",
+              "path": "/relationships/gateway-to-inventory-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-to-order-service",
+              "path": "/relationships/gateway-to-order-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/inventory-service-to-db",
+              "path": "/relationships/inventory-service-to-db",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/order-service-to-db",
+              "path": "/relationships/order-service-to-db",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/order-service-to-rabbitmq",
+              "path": "/relationships/order-service-to-rabbitmq",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/order-to-payment-service",
+              "path": "/relationships/order-to-payment-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/platform-composed-of-services",
+              "path": "/relationships/platform-composed-of-services",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/rabbitmq-to-payment-service",
+              "path": "/relationships/rabbitmq-to-payment-service",
+              "sidebar": "docs"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "docs": {
+              "link": {
+                "path": "/",
+                "label": "Home"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  },
+  "docusaurus-plugin-search-local": {
+    "default": {
+      "externalSearchSources": [],
+      "removeDefaultStopWordFilter": true,
+      "searchResultContextMaxLength": 50,
+      "searchResultLimits": 5,
+      "translations": {
+        "search_placeholder": "Search",
+        "see_all_results": "See all results",
+        "no_results": "No results.",
+        "search_results_for": "Search results for \"{{ keyword }}\"",
+        "search_the_documentation": "Search the documentation",
+        "count_documents_found_plural": "{{ count }} documents found",
+        "count_documents_found": "{{ count }} document found",
+        "no_documents_were_found": "No documents were found"
+      },
+      "highlightSearchTermsOnTargetPage": true,
+      "indexHash": null
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "relationships/inventory-service-to-db",
+  "title": "Inventory Service To Db",
+  "description": "Details",
+  "source": "@site/docs/relationships/inventory-service-to-db.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/inventory-service-to-db",
+  "permalink": "/relationships/inventory-service-to-db",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "relationship-id": "inventory-service-to-db",
+    "id": "inventory-service-to-db",
+    "title": "Inventory Service To Db"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Order Service To Db",
+    "permalink": "/relationships/order-service-to-db"
+  },
+  "next": {
+    "title": "Platform Composed Of Services",
+    "permalink": "/relationships/platform-composed-of-services"
+  }
+}

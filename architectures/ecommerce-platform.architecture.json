@@ -1,0 +1,778 @@
+{
+  "$schema": "https://calm.finos.org/release/1.3/meta/calm.json",
+  "unique-id": "ecommerce-platform",
+  "name": "E-Commerce Order Processing Platform",
+  "description": "A complete e-commerce order processing system with order management, inventory control, and payment processing capabilities",
+  "adrs": [
+    "docs/adr/0001-use-message-queue-for-async-processing.md",
+    "docs/adr/0002-use-oauth2-for-api-authentication.md",
+    "docs/adr/0003-multi-master-database-replication.md",
+    "docs/adr/0004-async-payment-processing.md",
+    "docs/adr/0005-api-gateway-resilience-multi-region.md"
+  ],
+  "metadata": {
+    "owner": "piyush.kumar4@ust.com",
+    "version": "2.0.0",
+    "created": "2026-11-20",
+    "updated": "2026-11-20",
+    "environment": "production",
+    "business-domain": "E-Commerce",
+    "tags": ["ecommerce", "microservices", "orders", "inventory", "payments", "resilience", "multi-region"],
+    "deployment-type": "kubernetes",
+    "architecture-pattern": "event-driven-microservices",
+    "resilience-improvements": {
+      "database-replication": "bi-directional-multi-master",
+      "payment-processing": "event-driven-async",
+      "api-gateway": "multi-region-geodns",
+      "rto-target": "< 10 seconds",
+      "rpo-target": "0 seconds",
+      "availability-target": "99.99%"
+    },
+    "regions": ["Region-A", "Region-B"],
+    "active-active-deployment": true
+  },
+  "controls": {
+    "security": {
+      "description": "Data encryption and secure communication requirements",
+      "requirements": [
+        {
+          "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+          "config": {
+            "control-id": "SEC-001",
+            "name": "Encryption at rest",
+            "description": "All data stores use AES-256 encryption at rest"
+          }
+        },
+        {
+          "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+          "config-url": "controls/tls-config.json"
+        }
+      ]
+    },
+    "performance": {
+      "description": "System-wide performance and scalability requirements",
+      "requirements": [
+        {
+          "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+          "config": {
+            "control-id": "PERF-001",
+            "name": "Response time",
+            "description": "Response latency is at most 200 ms at p99 and 100 ms at p95"
+          }
+        },
+        {
+          "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+          "config": {
+            "control-id": "PERF-002",
+            "name": "Availability",
+            "description": "The platform targets 99.9% availability"
+          }
+        }
+      ]
+    }
+  },
+  "flows": [
+    {
+      "unique-id": "order-processing-flow",
+      "name": "Customer Order Processing",
+      "description": "End-to-end flow from customer placing an order to payment confirmation",
+      "transitions": [
+        {
+          "relationship-unique-id": "customer-interacts-with-gateway",
+          "sequence-number": 1,
+          "description": "Customer submits order via web interface",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "gateway-to-order-service",
+          "sequence-number": 2,
+          "description": "API Gateway routes order to Order Service",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "order-to-payment-async",
+          "sequence-number": 3,
+          "description": "Order Service publishes payment event to RabbitMQ",
+          "direction": "source-to-destination"
+        }
+      ],
+      "controls": {
+        "audit": {
+          "description": "All order processing steps must be logged for audit compliance",
+          "requirements": [
+            {
+              "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+              "config": {
+                "control-id": "AUDIT-001",
+                "name": "Transaction logging",
+                "description": "Log all order processing steps in detail and retain logs for 365 days"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "inventory-check-flow",
+      "name": "Inventory Stock Check",
+      "description": "Admin checks and updates inventory stock levels",
+      "transitions": [
+        {
+          "relationship-unique-id": "admin-interacts-with-gateway",
+          "sequence-number": 1,
+          "description": "Admin requests inventory status",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "gateway-to-inventory-service",
+          "sequence-number": 2,
+          "description": "Route to inventory service",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "inventory-service-to-db",
+          "sequence-number": 3,
+          "description": "Query current stock levels",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "inventory-service-to-db",
+          "sequence-number": 4,
+          "description": "Return stock data",
+          "direction": "destination-to-source"
+        },
+        {
+          "relationship-unique-id": "gateway-to-inventory-service",
+          "sequence-number": 5,
+          "description": "Return inventory report",
+          "direction": "destination-to-source"
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "unique-id": "customer-actor",
+      "node-type": "actor",
+      "name": "Customer",
+      "description": "External actors representing end-users who browse products and place orders",
+      "metadata": {
+        "role": "end-user",
+        "external": true
+      }
+    },
+    {
+      "unique-id": "admin-actor",
+      "node-type": "actor",
+      "name": "Administrator",
+      "description": "Internal administrators responsible for managing inventory, orders, and system configuration",
+      "metadata": {
+        "role": "admin",
+        "internal": true
+      }
+    },
+    {
+      "unique-id": "api-gateway",
+      "node-type": "service",
+      "name": "API Gateway",
+      "description": "Entry point for all client requests, handles routing, authentication, and request validation",
+      "interfaces": [
+        {
+          "unique-id": "gateway-http-api",
+          "url": "https://api.ecommerce.internal/v1"
+        },
+        {
+          "unique-id": "gateway-auth-interface",
+          "protocol": "OAuth2",
+          "port": 443
+        }
+      ],
+      "metadata": {
+        "version": "2.0.0",
+        "runtime": "Node.js",
+        "owner": "Platform Team",
+        "deployment-type": "kubernetes",
+        "deployment-strategy": "multi-region-active-active",
+        "regions": ["Region-A", "Region-B"],
+        "replicas-per-region": 3,
+        "total-replicas": 6,
+        "cpu-request": "500m",
+        "memory-request": "512Mi",
+        "geographic-routing": "GeoDNS",
+        "failover-time": "< 10 seconds",
+        "authentication": "OAuth2.0 (RFC 6749)",
+        "token-format": "JWT (RFC 7519)",
+        "token-validation": "RS256 signature verification",
+        "oauth2-grant-types": ["authorization_code", "client_credentials"],
+        "access-token-ttl": "3600s",
+        "refresh-token-ttl": "2592000s",
+        "token-endpoint": "https://auth.ecommerce.internal/oauth2/token",
+        "jwt-claims": ["sub", "aud", "iss", "exp", "iat", "scope"],
+        "scope-validation": "enabled",
+        "token-revocation": "supported",
+        "jwks-cache-ttl": "3600s"
+      },
+      "controls": {
+        "security": {
+          "description": "OAuth2 and JWT authentication security requirements",
+          "requirements": [
+            {
+              "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+              "config": {
+                "control-id": "SEC-003",
+                "name": "OAuth2 implementation",
+                "description": "Implement RFC 6749 OAuth2 with authorization_code and client_credentials flows"
+              }
+            },
+            {
+              "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+              "config": {
+                "control-id": "SEC-004",
+                "name": "JWT token security",
+                "description": "Use RS256 algorithm for JWT signing, rotate keys every 90 days, validate expiry"
+              }
+            },
+            {
+              "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+              "config": {
+                "control-id": "SEC-005",
+                "name": "Token lifecycle",
+                "description": "Access tokens expire in 1 hour, refresh tokens in 30 days, implement token revocation"
+              }
+            }
+          ]
+        },
+        "performance": {
+          "description": "API Gateway rate limiting and caching requirements",
+          "requirements": [
+            {
+              "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+              "config": {
+                "control-id": "PERF-003",
+                "name": "Rate limiting",
+                "description": "Limit each client to 100 requests per second"
+              }
+            },
+            {
+              "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+              "config": {
+                "control-id": "PERF-004",
+                "name": "Caching",
+                "description": "Use a default TTL of 300 seconds and private cache control"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "order-service",
+      "node-type": "service",
+      "name": "Order Service",
+      "description": "Core service for managing orders, including creation, tracking, and status updates",
+      "interfaces": [
+        {
+          "unique-id": "order-rest-api",
+          "url": "https://order-service.internal:8080/api/orders"
+        },
+        {
+          "unique-id": "order-event-stream",
+          "protocol": "Kafka",
+          "port": 9092
+        }
+      ],
+      "metadata": {
+        "version": "1.5.0",
+        "runtime": "Java 17",
+        "framework": "Spring Boot",
+        "owner": "Order Team",
+        "database": "order-database",
+        "replicas": 2,
+        "cpu-limit": "1000m",
+        "memory-limit": "2Gi"
+      }
+    },
+    {
+      "unique-id": "inventory-service",
+      "node-type": "service",
+      "name": "Inventory Service",
+      "description": "Manages product inventory, stock levels, and inventory reservations for orders",
+      "interfaces": [
+        {
+          "unique-id": "inventory-rest-api",
+          "url": "https://inventory-service.internal:8080/api/inventory"
+        },
+        {
+          "unique-id": "inventory-cache-interface",
+          "protocol": "Redis",
+          "port": 6379
+        }
+      ],
+      "metadata": {
+        "version": "1.2.0",
+        "runtime": "Python 3.11",
+        "framework": "FastAPI",
+        "owner": "Inventory Team",
+        "database": "inventory-database",
+        "cache-layer": "Redis",
+        "replicas": 2
+      }
+    },
+    {
+      "unique-id": "payment-service",
+      "node-type": "service",
+      "name": "Payment Service",
+      "description": "Handles payment processing, transaction authorization, and payment status tracking",
+      "interfaces": [
+        {
+          "unique-id": "payment-rest-api",
+          "url": "https://payment-service.internal:8080/api/payments"
+        },
+        {
+          "unique-id": "payment-gateway-interface",
+          "protocol": "HTTPS",
+          "port": 443
+        }
+      ],
+      "metadata": {
+        "version": "1.3.0",
+        "runtime": "Go",
+        "owner": "Payment Team",
+        "compliance": "PCI-DSS",
+        "encryption": "TLS 1.3",
+        "external-integration": "Stripe, PayPal"
+      },
+      "controls": {
+        "compliance": {
+          "description": "PCI-DSS compliance for payment processing",
+          "requirements": [
+            {
+              "requirement-url": "https://calm.finos.org/release/1.3/meta/control-requirement.json",
+              "config": {
+                "control-id": "COMP-001",
+                "name": "Payment compliance",
+                "description": "Payment processing must meet PCI-DSS v4.0 requirements"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "oauth2-auth-server",
+      "node-type": "service",
+      "name": "OAuth2 Authorization Server",
+      "description": "Centralized OAuth2 token issuer and validator for API authentication",
+      "interfaces": [
+        {
+          "unique-id": "oauth2-token-endpoint",
+          "url": "https://auth.ecommerce.internal/oauth2/token",
+          "protocol": "HTTPS"
+        },
+        {
+          "unique-id": "oauth2-authorize-endpoint",
+          "url": "https://auth.ecommerce.internal/oauth2/authorize",
+          "protocol": "HTTPS"
+        },
+        {
+          "unique-id": "oauth2-jwks-endpoint",
+          "url": "https://auth.ecommerce.internal/.well-known/jwks.json",
+          "protocol": "HTTPS"
+        }
+      ],
+      "metadata": {
+        "version": "1.0.0",
+        "owner": "Security Team",
+        "runtime": "Java 17",
+        "framework": "Spring Security",
+        "deployment-type": "kubernetes",
+        "replicas": 3,
+        "oauth2-standard": "RFC 6749",
+        "jwt-standard": "RFC 7519",
+        "token-endpoint": "/oauth2/token",
+        "authorize-endpoint": "/oauth2/authorize",
+        "jwks-endpoint": "/.well-known/jwks.json",
+        "grant-types": ["authorization_code", "client_credentials", "refresh_token"],
+        "access-token-ttl": "3600s",
+        "refresh-token-ttl": "2592000s",
+        "jwt-algorithm": "RS256",
+        "signature-key-rotation": "90 days",
+        "cpu-request": "500m",
+        "memory-request": "1Gi"
+      }
+    },
+    {
+      "unique-id": "rabbitmq-message-broker",
+      "node-type": "service",
+      "name": "RabbitMQ Message Broker",
+      "description": "Message broker for asynchronous order and payment processing",
+      "interfaces": [
+        {
+          "unique-id": "amqp-interface",
+          "protocol": "AMQP",
+          "port": 5672,
+          "url": "amqp://rabbitmq.internal:5672"
+        },
+        {
+          "unique-id": "management-api-interface",
+          "url": "https://rabbitmq-mgmt.internal:15672/api",
+          "protocol": "HTTPS"
+        }
+      ],
+      "metadata": {
+        "version": "3.12.0",
+        "owner": "Platform Team",
+        "deployment-type": "kubernetes",
+        "replicas": 3,
+        "message-durability": "persistent",
+        "acknowledgments": "enabled",
+        "queues": ["order.created", "payment.processed"],
+        "retention-policy": "30 days",
+        "dead-letter-queue": "enabled",
+        "cpu-request": "250m",
+        "memory-request": "512Mi",
+        "persistent-storage": "10Gi"
+      }
+    },
+    {
+      "unique-id": "order-database",
+      "node-type": "database",
+      "name": "Order Database",
+      "description": "Multi-master replicated database storing order data, customer order history, and order status information",
+      "interfaces": [
+        {
+          "unique-id": "order-db-connection-region-a",
+          "protocol": "PostgreSQL",
+          "port": 5432,
+          "host": "order-db-region-a.internal"
+        },
+        {
+          "unique-id": "order-db-connection-region-b",
+          "protocol": "PostgreSQL",
+          "port": 5432,
+          "host": "order-db-region-b.internal"
+        }
+      ],
+      "metadata": {
+        "type": "PostgreSQL",
+        "version": "14.0",
+        "owner": "Database Team",
+        "replication-strategy": "bi-directional-multi-master",
+        "replication-mode": "synchronous",
+        "regions": ["Region-A", "Region-B"],
+        "read-replicas": "3 per region for read-scaling",
+        "rto": "< 10 seconds",
+        "rpo": "0 seconds (zero data loss)",
+        "backup-strategy": "continuous replication + daily snapshots",
+        "retention-period": "2-years",
+        "failover": "automatic",
+        "conflict-resolution": "last-write-wins"
+      }
+    },
+    {
+      "unique-id": "inventory-database",
+      "node-type": "database",
+      "name": "Inventory Database",
+      "description": "Multi-master replicated database for managing product catalogs, stock levels, and inventory transactions",
+      "interfaces": [
+        {
+          "unique-id": "inventory-db-connection-region-a",
+          "protocol": "PostgreSQL",
+          "port": 5432,
+          "host": "inventory-db-region-a.internal"
+        },
+        {
+          "unique-id": "inventory-db-connection-region-b",
+          "protocol": "PostgreSQL",
+          "port": 5432,
+          "host": "inventory-db-region-b.internal"
+        }
+      ],
+      "metadata": {
+        "type": "PostgreSQL",
+        "version": "14.0",
+        "owner": "Database Team",
+        "replication-strategy": "bi-directional-multi-master",
+        "replication-mode": "synchronous",
+        "regions": ["Region-A", "Region-B"],
+        "read-replicas": "3 per region for read-scaling",
+        "rto": "< 10 seconds",
+        "rpo": "0 seconds (zero data loss)",
+        "backup-strategy": "continuous replication + daily snapshots",
+        "failover": "automatic",
+        "conflict-resolution": "last-write-wins"
+      }
+    },
+    {
+      "unique-id": "ecommerce-platform-system",
+      "node-type": "system",
+      "name": "E-Commerce Order Processing System",
+      "description": "Complete e-commerce platform orchestrating order processing, inventory management, and payment operations",
+      "metadata": {
+        "version": "1.0.0",
+        "owner": "piyush.kumar4@ust.com",
+        "created": "2026-11-20",
+        "environment": "production",
+        "architecture-style": "microservices",
+        "scaling-strategy": "horizontal",
+        "monitoring": "Prometheus + Grafana",
+        "logging": "ELK Stack",
+        "service-mesh": "Istio",
+        "deployment-type": "kubernetes"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "customer-interacts-with-gateway",
+      "description": "Customers interact with the platform through the API Gateway",
+      "relationship-type": {
+        "interacts": {
+          "actor": "customer-actor",
+          "nodes": ["api-gateway"]
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "port": 443,
+        "authentication": "JWT",
+        "rate-limiting": "1000 requests/minute per user",
+        "sla": "99.9% availability",
+        "monitoring": "API request metrics, latency tracking"
+      }
+    },
+    {
+      "unique-id": "admin-interacts-with-gateway",
+      "description": "Administrators access platform management features through the API Gateway",
+      "relationship-type": {
+        "interacts": {
+          "actor": "admin-actor",
+          "nodes": ["api-gateway"]
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "port": 443,
+        "authentication": "OAuth2 + MFA",
+        "audit-logging": "enabled",
+        "access-control": "RBAC",
+        "sla": "99.95% availability"
+      }
+    },
+    {
+      "unique-id": "gateway-to-order-service",
+      "description": "API Gateway routes order requests to the Order Service",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway",
+            "interfaces": ["gateway-http-api"]
+          },
+          "destination": {
+            "node": "order-service",
+            "interfaces": ["order-rest-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "routing-type": "load-balanced",
+        "circuit-breaker": "enabled",
+        "timeout": "30000ms",
+        "retry-policy": "exponential backoff",
+        "sla": "< 500ms p95 latency",
+        "throughput": "1000 orders/second peak"
+      }
+    },
+    {
+      "unique-id": "gateway-to-inventory-service",
+      "description": "API Gateway routes inventory requests to the Inventory Service",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway",
+            "interfaces": ["gateway-http-api"]
+          },
+          "destination": {
+            "node": "inventory-service",
+            "interfaces": ["inventory-rest-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "routing-type": "load-balanced",
+        "caching": "Redis cache layer active",
+        "cache-ttl": "5 minutes",
+        "timeout": "10000ms",
+        "sla": "< 200ms p95 latency",
+        "monitoring": "cache hit rate, inventory updates"
+      }
+    },
+    {
+      "unique-id": "order-to-payment-async",
+      "description": "Order Service publishes payment events to RabbitMQ for async payment processing",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-service",
+            "interfaces": ["order-event-stream"]
+          },
+          "destination": {
+            "node": "rabbitmq-message-broker",
+            "interfaces": ["amqp-interface"]
+          }
+        }
+      },
+      "metadata": {
+        "protocol": "AMQP",
+        "communication-pattern": "asynchronous-event-driven",
+        "event-type": "order.created",
+        "queue": "order.payment.queue",
+        "encryption": "TLS 1.3",
+        "compliance": "PCI-DSS Level 1",
+        "retry-policy": "exponential backoff (3 max retries)",
+        "sla": "< 100ms order confirmation",
+        "dlq-enabled": true,
+        "message-durability": "persistent"
+      }
+    },
+    {
+      "unique-id": "order-service-to-db",
+      "description": "Order Service persists order data to Order Database",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-service",
+            "interfaces": ["order-rest-api"]
+          },
+          "destination": {
+            "node": "order-database",
+            "interfaces": ["order-db-connection-region-a"]
+          }
+        }
+      },
+      "protocol": "JDBC",
+      "metadata": {
+        "connection-pool": 20,
+        "connection-timeout": "30s",
+        "ssl-enabled": true,
+        "ssl-mode": "require",
+        "query-timeout": "5000ms",
+        "replication": "read-replica",
+        "backup": "daily snapshots"
+      }
+    },
+    {
+      "unique-id": "inventory-service-to-db",
+      "description": "Inventory Service manages product inventory in Inventory Database",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "inventory-service",
+            "interfaces": ["inventory-rest-api"]
+          },
+          "destination": {
+            "node": "inventory-database",
+            "interfaces": ["inventory-db-connection-region-a"]
+          }
+        }
+      },
+      "protocol": "JDBC",
+      "metadata": {
+        "connection-pool": 15,
+        "connection-timeout": "30s",
+        "ssl-enabled": true,
+        "ssl-mode": "require",
+        "query-timeout": "3000ms",
+        "replication": "read-replica",
+        "backup": "daily snapshots"
+      }
+    },
+    {
+      "unique-id": "platform-composed-of-services",
+      "description": "E-Commerce platform is composed of core microservices, infrastructure, and data stores",
+      "relationship-type": {
+        "composed-of": {
+          "container": "ecommerce-platform-system",
+          "nodes": ["api-gateway", "oauth2-auth-server", "order-service", "inventory-service", "payment-service", "rabbitmq-message-broker", "order-database", "inventory-database"]
+        }
+      }
+    },
+    {
+      "unique-id": "gateway-to-auth-server",
+      "description": "API Gateway validates JWT tokens with OAuth2 Authorization Server",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway",
+            "interfaces": ["gateway-auth-interface"]
+          },
+          "destination": {
+            "node": "oauth2-auth-server",
+            "interfaces": ["oauth2-jwks-endpoint"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "communication-pattern": "synchronous",
+        "purpose": "token-validation",
+        "cache-jwks": "true",
+        "cache-ttl": "3600s",
+        "timeout": "5000ms",
+        "circuit-breaker": "enabled"
+      }
+    },
+    {
+      "unique-id": "order-service-to-rabbitmq",
+      "description": "Order Service publishes order events to message queue for async processing",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-service",
+            "interfaces": ["order-event-stream"]
+          },
+          "destination": {
+            "node": "rabbitmq-message-broker",
+            "interfaces": ["amqp-interface"]
+          }
+        }
+      },
+      "metadata": {
+        "protocol": "AMQP",
+        "pattern": "publish-subscribe",
+        "event-types": ["order.created", "order.pending"],
+        "communication-pattern": "asynchronous",
+        "message-format": "JSON",
+        "retry-policy": "exponential backoff",
+        "dead-letter-queue": "enabled"
+      }
+    },
+    {
+      "unique-id": "rabbitmq-to-payment-service",
+      "description": "Payment Service consumes order events from message queue for async payment processing",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "rabbitmq-message-broker",
+            "interfaces": ["amqp-interface"]
+          },
+          "destination": {
+            "node": "payment-service",
+            "interfaces": ["payment-rest-api"]
+          }
+        }
+      },
+      "metadata": {
+        "protocol": "AMQP",
+        "pattern": "publish-subscribe",
+        "consumer-group": "payment-processors",
+        "communication-pattern": "asynchronous",
+        "dead-letter-queue": "enabled",
+        "timeout": "30000ms",
+        "max-retries": 3
+      }
+    }
+  ]
+}

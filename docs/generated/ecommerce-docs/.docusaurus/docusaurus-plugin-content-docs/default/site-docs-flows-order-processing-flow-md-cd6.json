@@ -1,0 +1,28 @@
+{
+  "id": "flows/order-processing-flow",
+  "title": "Customer Order Processing",
+  "description": "Details",
+  "source": "@site/docs/flows/order-processing-flow.md",
+  "sourceDirName": "flows",
+  "slug": "/flows/order-processing-flow",
+  "permalink": "/flows/order-processing-flow",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "flow-id": "order-processing-flow",
+    "id": "order-processing-flow",
+    "title": "Customer Order Processing"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Rabbitmq To Payment Service",
+    "permalink": "/relationships/rabbitmq-to-payment-service"
+  },
+  "next": {
+    "title": "Inventory Stock Check",
+    "permalink": "/flows/inventory-check-flow"
+  }
+}

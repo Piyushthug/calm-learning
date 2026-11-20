@@ -1,0 +1,28 @@
+{
+  "id": "relationships/order-service-to-db",
+  "title": "Order Service To Db",
+  "description": "Details",
+  "source": "@site/docs/relationships/order-service-to-db.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/order-service-to-db",
+  "permalink": "/relationships/order-service-to-db",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "relationship-id": "order-service-to-db",
+    "id": "order-service-to-db",
+    "title": "Order Service To Db"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Order To Payment Service",
+    "permalink": "/relationships/order-to-payment-service"
+  },
+  "next": {
+    "title": "Inventory Service To Db",
+    "permalink": "/relationships/inventory-service-to-db"
+  }
+}

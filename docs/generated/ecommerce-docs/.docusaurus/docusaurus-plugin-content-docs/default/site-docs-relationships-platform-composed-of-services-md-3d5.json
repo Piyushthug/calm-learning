@@ -1,0 +1,28 @@
+{
+  "id": "relationships/platform-composed-of-services",
+  "title": "Platform Composed Of Services",
+  "description": "Details",
+  "source": "@site/docs/relationships/platform-composed-of-services.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/platform-composed-of-services",
+  "permalink": "/relationships/platform-composed-of-services",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "relationship-id": "platform-composed-of-services",
+    "id": "platform-composed-of-services",
+    "title": "Platform Composed Of Services"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Inventory Service To Db",
+    "permalink": "/relationships/inventory-service-to-db"
+  },
+  "next": {
+    "title": "Gateway To Auth Server",
+    "permalink": "/relationships/gateway-to-auth-server"
+  }
+}

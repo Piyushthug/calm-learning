@@ -1,0 +1,173 @@
+{
+  "/__docusaurus/debug-5ff": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/config-5ba": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/content-a2b": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    },
+    "__props": "__props---docusaurus-debug-content-3-c-0-be2"
+  },
+  "/__docusaurus/debug/globalData-c3c": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/metadata-156": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/registry-88c": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/routes-000": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/blog-98b": {
+    "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
+    "__context": {
+      "plugin": "plugin---blog-369-22e"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [],
+    "__props": "__props---blogc-15-573"
+  },
+  "/search-044": {
+    "__comp": "__comp---theme-search-page-1-a-4-d6f",
+    "__context": {
+      "plugin": "plugin---search-136-801"
+    }
+  },
+  "/-fa5": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---aba-d70"
+    }
+  },
+  "/-bc2": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---22-d-307"
+  },
+  "/-e59": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/flows/inventory-check-flow-057": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---flows-inventory-check-flow-80-c-1d2"
+  },
+  "/flows/order-processing-flow-2e8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---flows-order-processing-flowcd-6-64f"
+  },
+  "/nodes/admin-actor-e92": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-admin-actor-527-904"
+  },
+  "/nodes/api-gateway-7ec": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-api-gateway-475-354"
+  },
+  "/nodes/customer-actor-20c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-customer-actor-96-a-b9a"
+  },
+  "/nodes/ecommerce-platform-system-6bc": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-ecommerce-platform-system-43-c-8be"
+  },
+  "/nodes/inventory-database-71f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-inventory-database-05-a-2a8"
+  },
+  "/nodes/inventory-service-00e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-inventory-service-376-ab2"
+  },
+  "/nodes/oauth2-auth-server-c91": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-oauth-2-auth-server-0-f-3-52e"
+  },
+  "/nodes/order-database-07b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-order-database-0-fa-dad"
+  },
+  "/nodes/order-service-580": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-order-servicef-22-e2f"
+  },
+  "/nodes/payment-service-2ad": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-payment-servicefa-2-d4b"
+  },
+  "/nodes/rabbitmq-message-broker-590": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---nodes-rabbitmq-message-brokerb-27-dcb"
+  },
+  "/relationships/admin-interacts-with-gateway-fab": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-admin-interacts-with-gatewayf-63-d78"
+  },
+  "/relationships/customer-interacts-with-gateway-473": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-customer-interacts-with-gateway-040-e8a"
+  },
+  "/relationships/gateway-to-auth-server-06c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-gateway-to-auth-server-10-d-b50"
+  },
+  "/relationships/gateway-to-inventory-service-733": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-gateway-to-inventory-servicee-4-a-f9a"
+  },
+  "/relationships/gateway-to-order-service-141": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-gateway-to-order-service-8-d-6-4c3"
+  },
+  "/relationships/inventory-service-to-db-d88": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-inventory-service-to-dba-2-d-9b6"
+  },
+  "/relationships/order-service-to-db-b61": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-order-service-to-db-743-797"
+  },
+  "/relationships/order-service-to-rabbitmq-d02": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-order-service-to-rabbitmq-484-e8a"
+  },
+  "/relationships/order-to-payment-service-903": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-order-to-payment-service-125-7ca"
+  },
+  "/relationships/platform-composed-of-services-51c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-platform-composed-of-services-3-d-5-593"
+  },
+  "/relationships/rabbitmq-to-payment-service-b46": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---relationships-rabbitmq-to-payment-servicef-9-b-8b8"
+  },
+  "/-bea": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---c-37-d02"
+  }
+}

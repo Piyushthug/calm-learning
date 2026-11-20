@@ -1,0 +1,28 @@
+{
+  "id": "relationships/customer-interacts-with-gateway",
+  "title": "Customer Interacts With Gateway",
+  "description": "Details",
+  "source": "@site/docs/relationships/customer-interacts-with-gateway.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/customer-interacts-with-gateway",
+  "permalink": "/relationships/customer-interacts-with-gateway",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "relationship-id": "customer-interacts-with-gateway",
+    "id": "customer-interacts-with-gateway",
+    "title": "Customer Interacts With Gateway"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "E-Commerce Order Processing System",
+    "permalink": "/nodes/ecommerce-platform-system"
+  },
+  "next": {
+    "title": "Admin Interacts With Gateway",
+    "permalink": "/relationships/admin-interacts-with-gateway"
+  }
+}

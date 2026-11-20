@@ -1,0 +1,28 @@
+{
+  "id": "relationships/rabbitmq-to-payment-service",
+  "title": "Rabbitmq To Payment Service",
+  "description": "Details",
+  "source": "@site/docs/relationships/rabbitmq-to-payment-service.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/rabbitmq-to-payment-service",
+  "permalink": "/relationships/rabbitmq-to-payment-service",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "relationship-id": "rabbitmq-to-payment-service",
+    "id": "rabbitmq-to-payment-service",
+    "title": "Rabbitmq To Payment Service"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Order Service To Rabbitmq",
+    "permalink": "/relationships/order-service-to-rabbitmq"
+  },
+  "next": {
+    "title": "Customer Order Processing",
+    "permalink": "/flows/order-processing-flow"
+  }
+}

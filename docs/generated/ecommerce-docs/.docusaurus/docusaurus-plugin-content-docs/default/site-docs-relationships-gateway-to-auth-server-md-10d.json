@@ -1,0 +1,28 @@
+{
+  "id": "relationships/gateway-to-auth-server",
+  "title": "Gateway To Auth Server",
+  "description": "Details",
+  "source": "@site/docs/relationships/gateway-to-auth-server.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/gateway-to-auth-server",
+  "permalink": "/relationships/gateway-to-auth-server",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "relationship-id": "gateway-to-auth-server",
+    "id": "gateway-to-auth-server",
+    "title": "Gateway To Auth Server"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Platform Composed Of Services",
+    "permalink": "/relationships/platform-composed-of-services"
+  },
+  "next": {
+    "title": "Order Service To Rabbitmq",
+    "permalink": "/relationships/order-service-to-rabbitmq"
+  }
+}

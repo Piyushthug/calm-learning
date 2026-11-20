@@ -1,0 +1,28 @@
+{
+  "id": "nodes/customer-actor",
+  "title": "Customer",
+  "description": "Details",
+  "source": "@site/docs/nodes/customer-actor.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/customer-actor",
+  "permalink": "/nodes/customer-actor",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "node-id": "customer-actor",
+    "id": "customer-actor",
+    "title": "Customer"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Home",
+    "permalink": "/"
+  },
+  "next": {
+    "title": "Administrator",
+    "permalink": "/nodes/admin-actor"
+  }
+}

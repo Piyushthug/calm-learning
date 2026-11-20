@@ -1,0 +1,28 @@
+{
+  "id": "nodes/payment-service",
+  "title": "Payment Service",
+  "description": "Details",
+  "source": "@site/docs/nodes/payment-service.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/payment-service",
+  "permalink": "/nodes/payment-service",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "node-id": "payment-service",
+    "id": "payment-service",
+    "title": "Payment Service"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Inventory Service",
+    "permalink": "/nodes/inventory-service"
+  },
+  "next": {
+    "title": "OAuth2 Authorization Server",
+    "permalink": "/nodes/oauth2-auth-server"
+  }
+}

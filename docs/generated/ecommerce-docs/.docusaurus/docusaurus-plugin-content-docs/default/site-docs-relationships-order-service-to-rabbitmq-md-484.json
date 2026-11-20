@@ -1,0 +1,28 @@
+{
+  "id": "relationships/order-service-to-rabbitmq",
+  "title": "Order Service To Rabbitmq",
+  "description": "Details",
+  "source": "@site/docs/relationships/order-service-to-rabbitmq.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/order-service-to-rabbitmq",
+  "permalink": "/relationships/order-service-to-rabbitmq",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "architecture": "../../../../../architectures/ecommerce-platform.architecture.json",
+    "relationship-id": "order-service-to-rabbitmq",
+    "id": "order-service-to-rabbitmq",
+    "title": "Order Service To Rabbitmq"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Gateway To Auth Server",
+    "permalink": "/relationships/gateway-to-auth-server"
+  },
+  "next": {
+    "title": "Rabbitmq To Payment Service",
+    "permalink": "/relationships/rabbitmq-to-payment-service"
+  }
+}
